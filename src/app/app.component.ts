@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
   public modelLoaded: boolean = false;
   public title: string = 'Pose Estimation  App';
   public introline: string = '(using TensorFlow.js with PoseNet Model)';
-  public modelText: string = 'ResNet 50';
+  public modelText: string = 'Select  Modal';
   public imgBtnStatus: boolean = true;
   public webBtnStatus: boolean = false;
   public imageElement: any;
@@ -213,7 +213,7 @@ export class AppComponent implements OnInit {
 
   public async realTimeVideo() {
     this.videoPic = false;
-    
+    console.log('hiii',this.pose)
     if (this.videoCanvasEnable) {
       if (this.pose === 'single-person') {
         this.singlePose = await this.model.estimatePoses(this.video, {
@@ -260,7 +260,6 @@ export class AppComponent implements OnInit {
   }
 
   public async loadModel() {
-    console.log('hiiii')
     this.canvas = document.getElementById("canvas");
     this.canvasContext = this.canvas.getContext("2d");
     this.canvasContext.clearRect(0, 0, 400, 300);
@@ -341,6 +340,7 @@ export class AppComponent implements OnInit {
   }
 
   public onKeypointsChanged() {
+    console.log('>>>>nn',this.pose)
     this.drawKeypoints = !this.drawKeypoints;
     if (this.imgBtnStatus) {
       if (this.pose === 'single-person') {
@@ -444,6 +444,7 @@ export class AppComponent implements OnInit {
   }
 
   public estimate() {
+    console.log('this.pose',this.pose)
     if (this.pose === 'single-person') {
       this.estimatePose();
     } else {
@@ -457,6 +458,8 @@ export class AppComponent implements OnInit {
       flipHorizontal: this.flipHorizontal,
       decodingMethod: 'single-person'
     });
+
+    console.log('**', this.singlePose)
     this.canvas = document.getElementById("canvas");
     this.canvasContext = this.canvas.getContext("2d");
     this.canvasContext.clearRect(0, 0, 400, 300);
